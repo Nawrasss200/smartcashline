@@ -4,19 +4,22 @@ app = Flask(__name__)
 
 
 # =========================================================
-# SMARTCASHLINE
-# Main Routes
+# HOME / LOGIN
 # =========================================================
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("login.html")
 
 
 @app.route("/login")
 def login():
     return render_template("login.html")
 
+
+# =========================================================
+# MAIN SYSTEM
+# =========================================================
 
 @app.route("/dashboard")
 def dashboard():
@@ -53,17 +56,22 @@ def settings():
     return render_template("settings.html")
 
 
+# =========================================================
+# INFORMATION PAGES
+# =========================================================
+
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
 # =========================================================
-# Contact API
+# CONTACT API
 # =========================================================
 
 @app.route("/contact", methods=["POST"])
 def contact():
+
     data = request.get_json(silent=True) or {}
 
     name = data.get("name", "").strip()
@@ -83,7 +91,7 @@ def contact():
 
 
 # =========================================================
-# Health Check
+# HEALTH CHECK
 # =========================================================
 
 @app.route("/health")
@@ -92,7 +100,7 @@ def health():
 
 
 # =========================================================
-# Run
+# RUN
 # =========================================================
 
 if __name__ == "__main__":
