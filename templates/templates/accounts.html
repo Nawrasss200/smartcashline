@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCashLine | الحسابات</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at 90% 0%, rgba(18,104,196,.10), transparent 30%),
+                linear-gradient(135deg, #f3f8fc, #eef8f6);
+            color: #10253f;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255,255,255,.88);
+            border-bottom: 1px solid #e5edf4;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .logo span {
+            color: #16bfa2;
+        }
+
+        .profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background: #eaf5fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px 17px 100px;
+        }
+
+        .top {
+            margin-bottom: 25px;
+        }
+
+        .top h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .top p {
+            color: #73869a;
+            font-size: 13px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #e5edf4;
+            border-radius: 19px;
+            padding: 19px;
+            box-shadow: 0 8px 25px rgba(24,55,88,.05);
+        }
+
+        .summary-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .summary-title {
+            color: #8091a2;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .summary-value {
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .accounts-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .accounts-title h2 {
+            font-size: 19px;
+        }
+
+        .add-btn {
+            border: 0;
+            background: linear-gradient(135deg, #1268c4, #16bda2);
+            color: white;
+            border-radius: 12px;
+            padding: 11px 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .accounts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .account {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #e3ebf2;
+            border-radius: 22px;
+            padding: 23px;
+            min-height: 190px;
+            box-shadow: 0 10px 30px rgba(24,55,88,.06);
+        }
+
+        .account::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(18,104,196,.06);
+            left: -45px;
+            bottom: -55px;
+        }
+
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .account-name {
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .account-type {
+            color: #7d8fa1;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .account-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #edf7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .account-balance-label {
+            color: #8495a5;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .account-balance {
+            font-size: 27px;
+            font-weight: 900;
+            margin-bottom: 17px;
+        }
+
+        .account-number {
+            color: #8192a2;
+            font-size: 11px;
+        }
+
+        .status {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            font-size: 10px;
+            color: #13a989;
+            background: #e9faf5;
+            padding: 5px 9px;
+            border-radius: 20px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 67px;
+            background: rgba(255,255,255,.94);
+            border-top: 1px solid #e4ebf1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 20;
+            backdrop-filter: blur(15px);
+        }
+
+        .bottom-nav a {
+            text-decoration: none;
+            color: #8292a2;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .bottom-nav a.active {
+            color: #1268c4;
+            font-weight: 700;
+        }
+
+        .bottom-nav div {
+            font-size: 19px;
+            margin-bottom: 3px;
+        }
+
+        @media (max-width: 700px) {
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .summary-card:last-child {
+                grid-column: span 2;
+            }
+
+            .accounts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 800px) {
+
+            .bottom-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .container {
+                padding-left: 13px;
+                padding-right: 13px;
+            }
+
+            .summary-card {
+                padding: 15px;
+            }
+
+            .summary-value {
+                font-size: 18px;
+            }
+
+            .account {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        Smart<span>CashLine</span>
+    </div>
+
+    <div class="profile">
+        👤
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="top">
+
+        <h1>حساباتك 💳</h1>
+
+        <p>
+            إدارة ومتابعة أرصدتك المالية من مكان واحد
+        </p>
+
+    </section>
+
+
+    <section class="summary">
+
+        <div class="summary-card">
+
+            <div class="summary-icon">💰</div>
+
+            <div class="summary-title">
+                إجمالي الأرصدة
+            </div>
+
+            <div class="summary-value">
+                1,250.00 JOD
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">🏦</div>
+
+            <div class="summary-title">
+                عدد الحسابات
+            </div>
+
+            <div class="summary-value">
+                3
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon">📈</div>
+
+            <div class="summary-title">
+                حركة هذا الشهر
+            </div>
+
+            <div class="summary-value">
+                +530 JOD
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="accounts-title">
+
+        <h2>
+            الحسابات
+        </h2>
+
+        <button class="add-btn" onclick="addAccount()">
+            + حساب جديد
+        </button>
+
+    </div>
+
+
+    <section class="accounts">
+
+
+        <article class="account">
+
+            <div class="account-header">
+
+                <div>
+                    <div class="account-name">
+                        الحساب الرئيسي
+                    </div>
+
+                    <div class="account-type">
+                        حساب شخصي
+                    </div>
+                </div>
+
+                <div class="account-icon">
+                    💳
+                </div>
+
+            </div>
+
+            <div class="account-balance-label">
+                الرصيد المتاح
+            </div>
+
+            <div class="account-balance">
+                850.00 JOD
+            </div>
+
+            <div class="account-number">
+                •••• •••• •••• 4821
+            </div>
+
+            <div class="status">
+                ● نشط
+            </div>
+
+        </article>
+
+
+        <article class="account">
+
+            <div class="account-header">
+
+                <div>
+                    <div class="account-name">
+                        حساب الادخار
+                    </div>
+
+                    <div class="account-type">
+                        توفير
+                    </div>
+                </div>
+
+                <div class="account-icon">
+                    🏦
+                </div>
+
+            </div>
+
+            <div class="account-balance-label">
+                الرصيد المتاح
+            </div>
+
+            <div class="account-balance">
+                320.00 JOD
+            </div>
+
+            <div class="account-number">
+                •••• •••• •••• 7359
+            </div>
+
+            <div class="status">
+                ● نشط
+            </div>
+
+        </article>
+
+
+        <article class="account">
+
+            <div class="account-header">
+
+                <div>
+                    <div class="account-name">
+                        المحفظة الرقمية
+                    </div>
+
+                    <div class="account-type">
+                        محفظة إلكترونية
+                    </div>
+                </div>
+
+                <div class="account-icon">
+                    📱
+                </div>
+
+            </div>
+
+            <div class="account-balance-label">
+                الرصيد المتاح
+            </div>
+
+            <div class="account-balance">
+                80.00 JOD
+            </div>
+
+            <div class="account-number">
+                •••• •••• 2190
+            </div>
+
+            <div class="status">
+                ● نشط
+            </div>
+
+        </article>
+
+
+    </section>
+
+</main>
+
+
+<nav class="bottom-nav">
+
+    <a href="/dashboard">
+        <div>📊</div>
+        الرئيسية
+    </a>
+
+    <a href="/accounts" class="active">
+        <div>💰</div>
+        الحسابات
+    </a>
+
+    <a href="/transfers">
+        <div>💸</div>
+        التحويل
+    </a>
+
+    <a href="/transactions">
+        <div>📋</div>
+        العمليات
+    </a>
+
+    <a href="/settings">
+        <div>⚙️</div>
+        الإعدادات
+    </a>
+
+</nav>
+
+
+<script>
+
+function addAccount() {
+    alert("سيتم تفعيل إضافة الحسابات عند ربط قاعدة البيانات.");
+}
+
+</script>
+
+</body>
+</html>
