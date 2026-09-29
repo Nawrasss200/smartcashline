@@ -7,6 +7,16 @@
     <title>SmartCashLine | تسجيل الدخول</title>
 
     <style>
+        :root {
+            --navy: #071a2f;
+            --blue: #1268c4;
+            --cyan: #18bfa5;
+            --text: #10253f;
+            --muted: #718096;
+            --white: #ffffff;
+            --border: #e6edf5;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,139 +25,230 @@
 
         body {
             min-height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: Arial, "Tahoma", sans-serif;
+            color: var(--text);
             background:
-                radial-gradient(circle at top right, rgba(32,214,163,.15), transparent 35%),
-                radial-gradient(circle at bottom left, rgba(40,100,180,.14), transparent 35%),
-                #050d18;
-            color: #fff;
+                radial-gradient(circle at 10% 10%, rgba(24,191,165,.18), transparent 28%),
+                radial-gradient(circle at 90% 5%, rgba(18,104,196,.18), transparent 30%),
+                linear-gradient(135deg, #eef7ff 0%, #f7fbff 48%, #eefaf8 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 25px;
+            overflow-x: hidden;
         }
 
-        .login-wrapper {
+        /* زخارف الخلفية */
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 240px;
+            height: 240px;
+            background: rgba(18,104,196,.08);
+            top: -80px;
+            left: -70px;
+        }
+
+        body::after {
+            width: 280px;
+            height: 280px;
+            background: rgba(24,191,165,.08);
+            bottom: -100px;
+            right: -90px;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            max-width: 430px;
+            max-width: 980px;
+            display: grid;
+            grid-template-columns: 1fr 430px;
+            gap: 35px;
+            align-items: center;
+        }
+
+        /* الجانب التعريفي */
+
+        .intro {
+            padding: 25px;
         }
 
         .brand {
-            text-align: center;
-            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 45px;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -.5px;
-        }
-
-        .logo span {
-            color: #20d6a3;
-        }
-
-        .brand p {
-            color: #8498aa;
-            font-size: 13px;
-            margin-top: 8px;
-        }
-
-        .login-card {
-            background: rgba(12, 26, 42, .88);
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 25px;
-            padding: 28px 22px;
-            box-shadow: 0 25px 70px rgba(0,0,0,.35);
-            backdrop-filter: blur(18px);
-        }
-
-        .icon {
-            width: 62px;
-            height: 62px;
-            margin: 0 auto 20px;
-            border-radius: 19px;
-            background: rgba(32,214,163,.12);
-            border: 1px solid rgba(32,214,163,.2);
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 29px;
+            font-size: 23px;
+            box-shadow: 0 12px 30px rgba(18,104,196,.22);
         }
 
-        h1 {
-            text-align: center;
+        .brand-name {
             font-size: 24px;
-            margin-bottom: 8px;
+            font-weight: 900;
+            color: var(--navy);
         }
 
-        .subtitle {
+        .brand-name span {
+            color: var(--cyan);
+        }
+
+        .intro h2 {
+            font-size: clamp(34px, 5vw, 52px);
+            line-height: 1.15;
+            color: var(--navy);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .intro h2 span {
+            color: var(--blue);
+        }
+
+        .intro p {
+            max-width: 500px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .features {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .feature {
+            background: rgba(255,255,255,.75);
+            border: 1px solid rgba(255,255,255,.9);
+            padding: 10px 14px;
+            border-radius: 50px;
+            color: #40566d;
+            font-size: 12px;
+            box-shadow: 0 5px 20px rgba(31,61,90,.05);
+        }
+
+        /* بطاقة الدخول */
+
+        .login-card {
+            background: rgba(255,255,255,.92);
+            border: 1px solid rgba(255,255,255,.95);
+            border-radius: 30px;
+            padding: 34px;
+            box-shadow:
+                0 25px 70px rgba(24,55,88,.13),
+                0 5px 20px rgba(24,55,88,.05);
+            backdrop-filter: blur(20px);
+        }
+
+        .card-top {
             text-align: center;
-            color: #8295a8;
+            margin-bottom: 28px;
+        }
+
+        .login-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 17px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #e9f5ff, #e8faf6);
+            border: 1px solid #dcecf7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .card-top h1 {
+            color: var(--navy);
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .card-top p {
+            color: var(--muted);
             font-size: 13px;
-            margin-bottom: 25px;
         }
 
         .field {
-            margin-bottom: 17px;
+            margin-bottom: 18px;
         }
 
-        label {
+        .field label {
             display: block;
             margin-bottom: 8px;
+            color: #294159;
             font-size: 13px;
-            color: #d5dee6;
+            font-weight: 700;
         }
 
-        .input-wrapper {
+        .input-box {
             position: relative;
         }
 
-        .input-icon {
+        .input-box .icon {
             position: absolute;
-            right: 14px;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 17px;
-            opacity: .7;
+            font-size: 16px;
+            opacity: .65;
         }
 
         input {
             width: 100%;
-            height: 52px;
-            padding: 0 45px 0 14px;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 14px;
-            outline: none;
-            background: #081624;
-            color: #fff;
+            height: 54px;
+            border: 1px solid var(--border);
+            background: #f8fbfe;
+            border-radius: 15px;
+            padding: 0 45px 0 48px;
+            color: var(--text);
             font-size: 14px;
+            outline: none;
             transition: .2s;
         }
 
         input::placeholder {
-            color: #5f7284;
+            color: #9aaabd;
         }
 
         input:focus {
-            border-color: #20d6a3;
-            box-shadow: 0 0 0 3px rgba(32,214,163,.08);
+            background: white;
+            border-color: #56b8d9;
+            box-shadow: 0 0 0 4px rgba(24,191,165,.08);
         }
 
-        .password-wrapper input {
-            padding-left: 48px;
-        }
-
-        .show-password {
+        .password-toggle {
             position: absolute;
             left: 13px;
             top: 50%;
             transform: translateY(-50%);
             border: 0;
             background: transparent;
-            color: #8093a5;
             cursor: pointer;
             font-size: 16px;
+            opacity: .65;
         }
 
         .options {
@@ -155,107 +256,137 @@
             justify-content: space-between;
             align-items: center;
             margin: 4px 0 22px;
-            font-size: 12px;
         }
 
         .remember {
             display: flex;
             align-items: center;
             gap: 7px;
-            color: #8799aa;
+            color: #73849a;
+            font-size: 12px;
         }
 
         .remember input {
             width: 15px;
             height: 15px;
-            accent-color: #20d6a3;
+            padding: 0;
+            accent-color: var(--cyan);
         }
 
         .forgot {
-            color: #20d6a3;
+            color: var(--blue);
             text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         .login-btn {
             width: 100%;
-            height: 53px;
-            border: none;
-            border-radius: 15px;
-            background: linear-gradient(135deg, #20d6a3, #16b88e);
-            color: #03120e;
+            height: 55px;
+            border: 0;
+            border-radius: 16px;
+            cursor: pointer;
+            color: white;
             font-size: 15px;
             font-weight: 800;
-            cursor: pointer;
+            background: linear-gradient(135deg, #1268c4, #13bda3);
+            box-shadow: 0 12px 25px rgba(18,104,196,.18);
             transition: .2s;
         }
 
         .login-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px rgba(32,214,163,.18);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(18,104,196,.24);
         }
 
         .login-btn:active {
-            transform: scale(.99);
+            transform: translateY(0);
         }
 
-        .divider {
+        .security {
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
-            color: #526679;
+            gap: 6px;
+            margin-top: 20px;
+            color: #8a99a9;
             font-size: 11px;
-            margin: 24px 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: rgba(255,255,255,.07);
-        }
-
-        .demo {
-            background: #091a29;
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 14px;
-            padding: 13px;
-            text-align: center;
-            color: #8397a9;
-            font-size: 11px;
-        }
-
-        .demo strong {
-            color: #20d6a3;
         }
 
         .back {
             display: block;
             text-align: center;
-            margin-top: 22px;
-            color: #8195a7;
+            color: #60758a;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
+            margin-top: 18px;
         }
 
         .back:hover {
-            color: #20d6a3;
+            color: var(--blue);
         }
 
         .footer {
             text-align: center;
-            color: #536779;
+            color: #91a0ae;
             font-size: 10px;
-            margin-top: 20px;
+            margin-top: 18px;
         }
 
-        @media (max-width: 360px) {
-            .login-card {
-                padding: 23px 17px;
+        @media (max-width: 800px) {
+
+            body {
+                padding: 18px;
             }
 
-            .logo {
-                font-size: 24px;
+            .page {
+                display: block;
+                max-width: 480px;
+            }
+
+            .intro {
+                padding: 5px 5px 25px;
+                text-align: center;
+            }
+
+            .brand {
+                justify-content: center;
+                margin-bottom: 25px;
+            }
+
+            .intro h2 {
+                font-size: 31px;
+                margin-bottom: 10px;
+            }
+
+            .intro p {
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            .features {
+                justify-content: center;
+                margin-top: 18px;
+            }
+
+            .login-card {
+                padding: 27px 21px;
+                border-radius: 25px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .intro h2 {
+                font-size: 27px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .login-card {
+                padding: 23px 17px;
             }
         }
     </style>
@@ -263,102 +394,161 @@
 
 <body>
 
-<div class="login-wrapper">
+<div class="page">
 
-    <div class="brand">
-        <div class="logo">
-            Smart<span>CashLine</span>
+    <!-- التعريف -->
+
+    <section class="intro">
+
+        <div class="brand">
+            <div class="brand-icon">₿</div>
+
+            <div class="brand-name">
+                Smart<span>CashLine</span>
+            </div>
         </div>
-        <p>إدارة مالية ذكية وبسيطة</p>
-    </div>
 
-    <div class="login-card">
+        <h2>
+            أموالك،
+            <br>
+            <span>بإدارة أذكى.</span>
+        </h2>
 
-        <div class="icon">🔐</div>
-
-        <h1>تسجيل الدخول</h1>
-
-        <p class="subtitle">
-            سجّل الدخول للوصول إلى حسابك
+        <p>
+            منصة SmartCashLine تساعدك على إدارة الحسابات
+            والتحويلات والعمليات المالية من مكان واحد،
+            بطريقة واضحة وسريعة.
         </p>
 
-        <form onsubmit="login(event)">
-
-            <div class="field">
-                <label for="email">البريد الإلكتروني</label>
-
-                <div class="input-wrapper">
-                    <span class="input-icon">✉️</span>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="example@email.com"
-                        required
-                    >
-                </div>
-            </div>
-
-            <div class="field">
-                <label for="password">كلمة المرور</label>
-
-                <div class="input-wrapper password-wrapper">
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="أدخل كلمة المرور"
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        class="show-password"
-                        onclick="togglePassword()"
-                        id="eye"
-                    >👁️</button>
-
-                </div>
-            </div>
-
-            <div class="options">
-
-                <label class="remember">
-                    <input type="checkbox">
-                    تذكرني
-                </label>
-
-                <a href="#" class="forgot">
-                    نسيت كلمة المرور؟
-                </a>
-
-            </div>
-
-            <button class="login-btn" type="submit">
-                تسجيل الدخول
-            </button>
-
-        </form>
-
-        <div class="divider">
-            SmartCashLine
+        <div class="features">
+            <div class="feature">🔒 حماية وأمان</div>
+            <div class="feature">⚡ سرعة في العمليات</div>
+            <div class="feature">📊 تقارير مالية</div>
         </div>
 
-        <div class="demo">
-            🔒 سيتم تفعيل نظام المصادقة وقاعدة البيانات في المرحلة القادمة
+    </section>
+
+
+    <!-- تسجيل الدخول -->
+
+    <section>
+
+        <div class="login-card">
+
+            <div class="card-top">
+
+                <div class="login-icon">
+                    🔐
+                </div>
+
+                <h1>مرحباً بعودتك</h1>
+
+                <p>
+                    أدخل بياناتك للوصول إلى لوحة التحكم
+                </p>
+
+            </div>
+
+
+            <form onsubmit="login(event)">
+
+                <div class="field">
+
+                    <label for="email">
+                        البريد الإلكتروني
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="icon">✉️</span>
+
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        كلمة المرور
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="icon">🔑</span>
+
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="أدخل كلمة المرور"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            id="eye"
+                        >👁️</button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input type="checkbox">
+
+                        تذكرني
+
+                    </label>
+
+                    <a href="#" class="forgot">
+                        نسيت كلمة المرور؟
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    تسجيل الدخول
+                </button>
+
+            </form>
+
+
+            <div class="security">
+                🛡️ اتصال آمن ومحمي
+            </div>
+
         </div>
 
-    </div>
 
-    <a href="/" class="back">
-        ← العودة إلى الصفحة الرئيسية
-    </a>
+        <a href="/" class="back">
+            ← العودة إلى الصفحة الرئيسية
+        </a>
 
-    <div class="footer">
-        © 2026 SmartCashLine — جميع الحقوق محفوظة
-    </div>
+        <div class="footer">
+            © 2026 SmartCashLine
+        </div>
+
+    </section>
 
 </div>
+
 
 <script>
 
@@ -368,20 +558,23 @@ function togglePassword() {
     const eye = document.getElementById("eye");
 
     if (password.type === "password") {
+
         password.type = "text";
         eye.textContent = "🙈";
+
     } else {
+
         password.type = "password";
         eye.textContent = "👁️";
-    }
 
+    }
 }
+
 
 function login(event) {
 
     event.preventDefault();
 
-    // مؤقتًا، إلى أن نضيف نظام المستخدمين الحقيقي
     window.location.href = "/dashboard";
 
 }
