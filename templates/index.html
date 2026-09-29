@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart CashLine | نقديتك بذكاء</title>
+
+    <meta name="description"
+          content="Smart CashLine — منصة رقمية حديثة لإدارة النقد والخدمات المالية بطريقة بسيطة وذكية.">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(18,104,196,.12), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(24,191,165,.13), transparent 30%),
+                #f5f9fc;
+            color: #071a2f;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: auto;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,.90);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid #e5edf4;
+        }
+
+        .nav-container {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #071a2f;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: linear-gradient(135deg,#1268c4,#18bfa5);
+            box-shadow: 0 10px 25px rgba(18,104,196,.22);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #617589;
+            font-size: 14px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .nav-links a:hover {
+            color: #1268c4;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .login-button {
+            padding: 12px 19px;
+            border-radius: 12px;
+            color: #1268c4;
+            border: 1px solid #d7e6f2;
+            background: white;
+            font-weight: 800;
+        }
+
+        .start-button {
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: white;
+            background: linear-gradient(135deg,#1268c4,#18bfa5);
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(18,104,196,.18);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            padding: 90px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: #eaf6ff;
+            color: #1268c4;
+            border: 1px solid #d9ebfa;
+            padding: 9px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #18bfa5;
+        }
+
+        .hero h1 {
+            margin: 22px 0 15px;
+            font-size: clamp(43px,7vw,76px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(90deg,#1268c4,#18bfa5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text {
+            max-width: 620px;
+            color: #667b8f;
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 22px;
+            border-radius: 14px;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .primary-button {
+            color: white;
+            background: linear-gradient(135deg,#1268c4,#18bfa5);
+            box-shadow: 0 12px 28px rgba(18,104,196,.20);
+        }
+
+        .primary-button:hover,
+        .start-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            color: #1268c4;
+            background: white;
+            border: 1px solid #dbe7f0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 38px;
+            margin-top: 40px;
+        }
+
+        .hero-stats div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hero-stats strong {
+            color: #1268c4;
+        }
+
+        .hero-stats span {
+            color: #8191a0;
+            font-size: 12px;
+        }
+
+        /* ================= DASHBOARD CARD ================= */
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .dashboard-card {
+            background: rgba(255,255,255,.94);
+            border: 1px solid #e0eaf2;
+            border-radius: 30px;
+            padding: 24px;
+            box-shadow: 0 30px 80px rgba(15,52,82,.12);
+            transform: rotate(1deg);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-top div:first-child {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-top span {
+            font-weight: 900;
+        }
+
+        .card-top small {
+            color: #8292a1;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            border-radius: 20px;
+            background: #e9faf5;
+            color: #078e72;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .status span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #18bfa5;
+        }
+
+        .balance-box {
+            margin-top: 25px;
+            padding: 27px;
+            border-radius: 23px;
+            color: white;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(255,255,255,.18), transparent 30%),
+                linear-gradient(135deg,#0b315a,#1268c4);
+        }
+
+        .balance-box small {
+            opacity: .78;
+        }
+
+        .balance-box h2 {
+            margin: 12px 0 22px;
+            font-size: 32px;
+        }
+
+        .balance-line {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+        }
+
+        .balance-line span {
+            padding: 10px;
+            text-align: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,.10);
+            font-size: 13px;
+        }
+
+        .mini-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+            margin-top: 15px;
+        }
+
+        .mini-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 17px;
+            background: #f7fafc;
+            border: 1px solid #e5edf3;
+            border-radius: 18px;
+        }
+
+        .mini-icon {
+            width: 39px;
+            height: 39px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #e9f6ff;
+            color: #1268c4;
+            font-weight: 900;
+        }
+
+        .mini-card div {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mini-card small {
+            color: #8796a4;
+        }
+
+        /* ================= SECTIONS ================= */
+
+        .section {
+            padding: 95px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 48px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: #1268c4;
+            font-size: 13px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2,
+        .about-content h2 {
+            margin: 0;
+            font-size: clamp(30px,5vw,46px);
+            line-height: 1.25;
+        }
+
+        .section-heading h2 span,
+        .about-content h2 span {
+            color: #1268c4;
+        }
+
+        .section-heading p,
+        .about-content p {
+            color: #718395;
+            line-height: 1.9;
+            margin-top: 15px;
+        }
+
+        /* ================= SERVICES ================= */
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            position: relative;
+            padding: 30px;
+            background: white;
+            border: 1px solid #e3ecf3;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(15,52,82,.05);
+            transition: .25s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 22px 50px rgba(15,52,82,.09);
+        }
+
+        .service-card.featured {
+            border-color: #bdece2;
+            background: linear-gradient(145deg,#ffffff,#f2fcfa);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #e4faf5;
+            color: #078e72;
+            padding: 7px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .service-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 17px;
+            display: grid;
+            place-items: center;
+            background: #eaf5ff;
+            color: #1268c4;
+            font-size: 23px;
+            font-weight: 900;
+            margin-bottom: 22px;
+        }
+
+        .service-card h3 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        .service-card p {
+            color: #738496;
+            line-height: 1.8;
+            min-height: 82px;
+        }
+
+        .service-card a {
+            display: inline-block;
+            margin-top: 16px;
+            color: #1268c4;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about-section {
+            background: #edf5fa;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .about-visual {
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-card {
+            width: min(360px,100%);
+            text-align: center;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 1px solid #e0eaf2;
+            box-shadow: 0 25px 65px rgba(15,52,82,.09);
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 35px;
+            font-weight: 900;
+            background: linear-gradient(135deg,#1268c4,#18bfa5);
+            box-shadow: 0 15px 35px rgba(18,104,196,.22);
+        }
+
+        .about-card h3 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .about-card p {
+            color: #7c8c9b;
+        }
+
+        .about-lines {
+            display: grid;
+            gap: 9px;
+            margin-top: 25px;
+        }
+
+        .about-lines span {
+            height: 9px;
+            border-radius: 10px;
+            background: #edf3f7;
+        }
+
+        .about-lines span:nth-child(1) {
+            width: 90%;
+            margin: auto;
+        }
+
+        .about-lines span:nth-child(2) {
+            width: 70%;
+            margin: auto;
+        }
+
+        .about-lines span:nth-child(3) {
+            width: 50%;
+            margin: auto;
+        }
+
+        .about-content p {
+            max-width: 650px;
+        }
+
+        .check-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 25px;
+        }
+
+        .check-list div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #334b60;
+            font-weight: 700;
+        }
+
+        .check-list span {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #e3f9f3;
+            color: #079477;
+            font-size: 12px;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta-section {
+            padding: 70px 0;
+        }
+
+        .cta-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 45px;
+            border-radius: 30px;
+            color: white;
+            background:
+                radial-gradient(circle at 90% 20%,rgba(255,255,255,.15),transparent 30%),
+                linear-gradient(135deg,#0b315a,#1268c4);
+            box-shadow: 0 25px 60px rgba(18,104,196,.18);
+        }
+
+        .cta-box .section-label {
+            color: #8de7d6;
+        }
+
+        .cta-box h2 {
+            margin: 5px 0 10px;
+            font-size: 32px;
+        }
+
+        .cta-box p {
+            margin: 0;
+            opacity: .78;
+        }
+
+        .cta-box .primary-button {
+            background: white;
+            color: #1268c4;
+            flex-shrink: 0;
+        }
+
+        /* ================= CONTACT ================= */
+
+        .contact-box {
+            display: grid;
+            grid-template-columns: .75fr 1.25fr;
+            gap: 0;
+            background: white;
+            border: 1px solid #e1eaf1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 55px rgba(15,52,82,.07);
+        }
+
+        .contact-info {
+            padding: 40px;
+            background: linear-gradient(145deg,#0b315a,#1268c4);
+            color: white;
+        }
+
+        .contact-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.12);
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .contact-info h3 {
+            margin: 24px 0 7px;
+            font-size: 23px;
+        }
+
+        .contact-info > p {
+            opacity: .75;
+        }
+
+        .email-box {
+            margin-top: 45px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .email-box small {
+            opacity: .65;
+        }
+
+        .email-box a {
+            color: white;
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .contact-form {
+            padding: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            color: #30495f;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #dce7ef;
+            background: #f8fbfd;
+            border-radius: 13px;
+            padding: 14px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            color: #071a2f;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #1268c4;
+            background: white;
+        }
+
+        .form-button {
+            border: 0;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        #formMessage {
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #061628;
+            color: white;
+            padding: 45px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: #8495a7;
+            margin-top: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a6b5c3;
+            font-size: 13px;
+        }
+
+        .copyright {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            margin-top: 35px;
+            padding-top: 20px;
+            color: #708295;
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons,
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                text-align: center;
+            }
+
+            .check-list {
+                text-align: right;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-box {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .contact-logo {
+                margin: auto;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 560px) {
+
+            .container {
+                width: min(100% - 20px, 1180px);
+            }
+
+            .nav-actions .login-button {
+                display: none;
+            }
+
+            .start-button {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 47px;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .dashboard-card {
+                padding: 17px;
+            }
+
+            .balance-box {
+                padding: 22px;
+            }
+
+            .mini-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .cta-box {
+                padding: 30px 22px;
+            }
+
+            .contact-form,
+            .contact-info {
+                padding: 25px;
+            }
+
+            .copyright {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+        <a href="/" class="logo">
+            <span class="logo-icon">S</span>
+            <span>
+                <strong>Smart</strong> CashLine
+            </span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#services">خدماتنا</a>
+            <a href="#about">من نحن</a>
+            <a href="#contact">تواصل معنا</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <a href="/login" class="login-button">
+                تسجيل الدخول
+            </a>
+
+            <a href="/login" class="start-button">
+                ابدأ الآن
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<main>
+
+<section id="home" class="hero">
+
+    <div class="container hero-grid">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                حلول نقدية بطريقة أذكى
+            </div>
+
+            <h1>
+                نقديتك…
+                <span>بذكاء.</span>
+            </h1>
+
+            <p class="hero-text">
+                Smart CashLine منصة رقمية حديثة تهدف إلى
+                تقديم حلول نقدية وخدمات مالية بطريقة بسيطة،
+                واضحة وسهلة الاستخدام.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/login" class="primary-button">
+                    دخول إلى SmartCashLine
+                    <span>←</span>
+                </a>
+
+                <a href="#services" class="secondary-button">
+                    اكتشف خدماتنا
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div>
+                    <strong>Smart</strong>
+                    <span>حلول ذكية</span>
+                </div>
+
+                <div>
+                    <strong>Easy</strong>
+                    <span>تجربة بسيطة</span>
+                </div>
+
+                <div>
+                    <strong>Future</strong>
+                    <span>رؤية مستقبلية</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= HERO CARD ================= -->
+
+        <div class="hero-visual">
+
+            <div class="dashboard-card">
+
+                <div class="card-top">
+
+                    <div>
+                        <span>Smart CashLine</span>
+                        <small>لوحة التحكم</small>
+                    </div>
+
+                    <div class="status">
+                        <span></span>
+                        النظام جاهز
+                    </div>
+
+                </div>
+
+
+                <div class="balance-box">
+
+                    <small>
+                        الحل الذكي لإدارة النقد
+                    </small>
+
+                    <h2>
+                        Smart Cash
+                    </h2>
+
+                    <div class="balance-line">
+                        <span>بسيط</span>
+                        <span>سريع</span>
+                        <span>ذكي</span>
+                    </div>
+
+                </div>
+
+
+                <div class="mini-cards">
+
+                    <div class="mini-card">
+
+                        <span class="mini-icon">↗</span>
+
+                        <div>
+                            <small>سهولة</small>
+                            <strong>الاستخدام</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mini-card">
+
+                        <span class="mini-icon">✓</span>
+
+                        <div>
+                            <small>تجربة</small>
+                            <strong>واضحة</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+
+<section id="services" class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                خدماتنا
+            </span>
+
+            <h2>
+                حلول مصممة
+                <span>لتكون أبسط</span>
+            </h2>
+
+            <p>
+                نعمل على بناء تجربة حديثة تساعد العملاء
+                على الوصول إلى الخدمات بطريقة واضحة وسلسة.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+
+            <article class="service-card">
+
+                <div class="service-icon">
+                    ₿
+                </div>
+
+                <h3>
+                    حلول نقدية
+                </h3>
+
+                <p>
+                    حلول وخدمات نقدية مصممة بطريقة
+                    سهلة ومفهومة للمستخدم.
+                </p>
+
+                <a href="/login">
+                    اعرف المزيد ←
+                </a>
+
+            </article>
+
+
+            <article class="service-card featured">
+
+                <div class="featured-badge">
+                    Smart
+                </div>
+
+                <div class="service-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    خدمات ذكية
+                </h3>
+
+                <p>
+                    استخدام التقنية لتقديم تجربة
+                    أسرع وأكثر تنظيمًا ووضوحًا.
+                </p>
+
+                <a href="/login">
+                    ابدأ الآن ←
+                </a>
+
+            </article>
+
+
+            <article class="service-card">
+
+                <div class="service-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    حلول للأعمال
+                </h3>
+
+                <p>
+                    أفكار وخدمات تساعد المشاريع والأعمال
+                    على التعامل مع احتياجاتها النقدية.
+                </p>
+
+                <a href="/login">
+                    اعرف المزيد ←
+                </a>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about" class="section about-section">
+
+    <div class="container about-grid">
+
+
+        <div class="about-visual">
+
+            <div class="about-card">
+
+                <div class="circle">
+                    S
+                </div>
+
+                <h3>
+                    Smart CashLine
+                </h3>
+
+                <p>
+                    نقديتك… بذكاء.
+                </p>
+
+                <div class="about-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="about-content">
+
+            <span class="section-label">
+                من نحن
+            </span>
+
+            <h2>
+                نبني تجربة
+                <span>مالية أكثر ذكاءً</span>
+            </h2>
+
+            <p>
+                Smart CashLine مشروع يركز على تطوير
+                حلول رقمية حديثة مرتبطة بالخدمات النقدية،
+                مع الاهتمام بالبساطة والوضوح وسهولة الاستخدام.
+            </p>
+
+            <p>
+                رؤيتنا هي الجمع بين التقنية والتجربة
+                العملية لتقديم خدمات يفهمها المستخدم
+                ويستطيع التعامل معها بسهولة.
+            </p>
+
+
+            <div class="check-list">
+
+                <div>
+                    <span>✓</span>
+                    تجربة استخدام بسيطة
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    حلول رقمية حديثة
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    تركيز على احتياجات العميل
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <div>
+
+                <span class="section-label">
+                    Smart CashLine
+                </span>
+
+                <h2>
+                    جاهز تبدأ بطريقة أذكى؟
+                </h2>
+
+                <p>
+                    سجّل دخولك وابدأ باستكشاف SmartCashLine.
+                </p>
+
+            </div>
+
+            <a href="/login" class="primary-button">
+                تسجيل الدخول
+                <span>←</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="section contact-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                تواصل معنا
+            </span>
+
+            <h2>
+                خلينا
+                <span>نتواصل</span>
+            </h2>
+
+            <p>
+                عندك استفسار أو فكرة؟ أرسل لنا رسالة.
+            </p>
+
+        </div>
+
+
+        <div class="contact-box">
+
+
+            <div class="contact-info">
+
+                <div class="contact-logo">
+                    S
+                </div>
+
+                <h3>
+                    Smart CashLine
+                </h3>
+
+                <p>
+                    نقديتك… بذكاء.
+                </p>
+
+
+                <div class="email-box">
+
+                    <small>
+                        البريد الإلكتروني
+                    </small>
+
+                    <a href="mailto:smartcashline@gmail.com">
+                        smartcashline@gmail.com
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <form id="contactForm" class="contact-form">
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            الاسم
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="اكتب اسمك"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            البريد الإلكتروني
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        رسالتك
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="اكتب رسالتك هنا..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button form-button"
+                >
+                    إرسال الرسالة
+                    <span>←</span>
+                </button>
+
+
+                <div id="formMessage"></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container footer-content">
+
+        <div class="footer-brand">
+
+            <a href="/" class="logo">
+
+                <span class="logo-icon">
+                    S
+                </span>
+
+                <span>
+                    <strong>Smart</strong> CashLine
+                </span>
+
+            </a>
+
+            <p>
+                نقديتك… بذكاء.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#home">
+                الرئيسية
+            </a>
+
+            <a href="#services">
+                خدماتنا
+            </a>
+
+            <a href="#about">
+                من نحن
+            </a>
+
+            <a href="#contact">
+                تواصل معنا
+            </a>
+
+            <a href="/login">
+                تسجيل الدخول
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container copyright">
+
+        <span>
+            © 2026 Smart CashLine
+        </span>
+
+        <span>
+            جميع الحقوق محفوظة
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= CONTACT SCRIPT ================= -->
+
+<script>
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const messageBox =
+            document.getElementById("formMessage");
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const message =
+            document.getElementById("message").value.trim();
+
+
+        if (!name || !email || !message) {
+
+            messageBox.textContent =
+                "يرجى تعبئة جميع الحقول.";
+
+            messageBox.style.color = "#d04a4a";
+
+            return;
+        }
+
+
+        messageBox.textContent =
+            "جاري إرسال الرسالة...";
+
+        messageBox.style.color =
+            "#1268c4";
+
+
+        try {
+
+            const response =
+                await fetch("/contact", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message
+                    })
+
+                });
+
+
+            const data =
+                await response.json();
+
+
+            if (data.success) {
+
+                messageBox.textContent =
+                    data.message;
+
+                messageBox.style.color =
+                    "#078e72";
+
+                contactForm.reset();
+
+            } else {
+
+                messageBox.textContent =
+                    data.message || "حدث خطأ.";
+
+                messageBox.style.color =
+                    "#d04a4a";
+            }
+
+
+        } catch (error) {
+
+            messageBox.textContent =
+                "تعذر الاتصال بالخادم.";
+
+            messageBox.style.color =
+                "#d04a4a";
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
