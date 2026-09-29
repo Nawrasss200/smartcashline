@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>العمليات | SmartCashLine</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(18, 104, 196, .10), transparent 28%),
+                radial-gradient(circle at 90% 20%, rgba(24, 191, 165, .10), transparent 28%),
+                #f5f9fc;
+            color: #071a2f;
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: auto;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255,255,255,.88);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid #e7eef5;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .header-inner {
+            min-height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 900;
+            font-size: 21px;
+        }
+
+        .logo {
+            width: 43px;
+            height: 43px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(135deg, #1268c4, #18bfa5);
+            box-shadow: 0 10px 25px rgba(18,104,196,.20);
+        }
+
+        .profile {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #eaf3fb;
+            color: #1268c4;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Page */
+        .page {
+            padding: 34px 0;
+        }
+
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .title-row h1 {
+            font-size: clamp(27px, 5vw, 38px);
+            margin-bottom: 8px;
+        }
+
+        .title-row p {
+            color: #6d7f91;
+            font-size: 14px;
+        }
+
+        .export-btn {
+            border: 0;
+            background: white;
+            color: #1268c4;
+            padding: 13px 18px;
+            border-radius: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            border: 1px solid #dce8f2;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #e4edf5;
+            border-radius: 22px;
+            padding: 21px;
+            box-shadow: 0 12px 35px rgba(16,50,80,.05);
+        }
+
+        .stat-label {
+            color: #73869a;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .positive {
+            color: #0ca982;
+        }
+
+        .negative {
+            color: #e05555;
+        }
+
+        /* Main card */
+        .card {
+            background: white;
+            border: 1px solid #e4edf5;
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(16,50,80,.05);
+            overflow: hidden;
+        }
+
+        .toolbar {
+            padding: 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border-bottom: 1px solid #edf2f6;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            border: 1px solid #dce7ef;
+            background: #f8fbfd;
+            padding: 14px 16px;
+            border-radius: 13px;
+            outline: none;
+            font-size: 14px;
+            color: #071a2f;
+        }
+
+        .search input:focus {
+            border-color: #1268c4;
+            background: white;
+        }
+
+        select {
+            border: 1px solid #dce7ef;
+            background: #f8fbfd;
+            padding: 14px 16px;
+            border-radius: 13px;
+            color: #071a2f;
+            font-size: 14px;
+            outline: none;
+            min-width: 145px;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        th {
+            background: #f8fbfd;
+            color: #718397;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 16px 20px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-top: 1px solid #edf2f6;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        tr:hover td {
+            background: #fbfdff;
+        }
+
+        .transaction {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tx-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tx-in {
+            background: #e7f9f4;
+            color: #0ca982;
+        }
+
+        .tx-out {
+            background: #fff0f0;
+            color: #df5555;
+        }
+
+        .tx-pending {
+            background: #fff8df;
+            color: #c28b00;
+        }
+
+        .tx-name {
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .tx-description {
+            color: #8a99a8;
+            font-size: 12px;
+        }
+
+        .amount {
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .status {
+            display: inline-flex;
+            padding: 7px 11px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .completed {
+            background: #e7f9f4;
+            color: #078c6d;
+        }
+
+        .pending {
+            background: #fff7dd;
+            color: #a97800;
+        }
+
+        .cancelled {
+            background: #ffeded;
+            color: #d04a4a;
+        }
+
+        .date {
+            color: #6f8192;
+            font-size: 13px;
+        }
+
+        /* Mobile cards */
+        .mobile-list {
+            display: none;
+        }
+
+        .mobile-item {
+            padding: 18px;
+            border-bottom: 1px solid #edf2f6;
+        }
+
+        .mobile-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .mobile-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .mobile-details {
+            margin-top: 13px;
+            display: flex;
+            justify-content: space-between;
+            color: #718397;
+            font-size: 12px;
+        }
+
+        /* Bottom nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(650px, calc(100% - 24px));
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(18px);
+            border: 1px solid #dfe9f1;
+            box-shadow: 0 15px 45px rgba(11,43,70,.15);
+            border-radius: 22px;
+            padding: 8px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            z-index: 50;
+        }
+
+        .nav-item {
+            text-align: center;
+            padding: 9px 4px;
+            border-radius: 15px;
+            color: #78899a;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .nav-item span {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #1268c4;
+            background: #edf6ff;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: min(100% - 20px, 1180px);
+            }
+
+            .page {
+                padding: 25px 0;
+            }
+
+            .title-row {
+                align-items: flex-start;
+            }
+
+            .export-btn {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stats .stat {
+                padding: 17px;
+            }
+
+            .toolbar {
+                padding: 15px;
+            }
+
+            .search {
+                min-width: 100%;
+            }
+
+            select {
+                flex: 1;
+            }
+
+            .table-wrap {
+                display: none;
+            }
+
+            .mobile-list {
+                display: block;
+            }
+
+            .header-inner {
+                min-height: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-inner">
+
+        <a href="/dashboard" class="brand">
+            <div class="logo">₿</div>
+            <span>SmartCashLine</span>
+        </a>
+
+        <div class="profile">م</div>
+
+    </div>
+</header>
+
+<main class="container page">
+
+    <div class="title-row">
+        <div>
+            <h1>العمليات</h1>
+            <p>تابع جميع الحركات المالية والتحويلات الخاصة بك.</p>
+        </div>
+
+        <button class="export-btn" onclick="exportData()">
+            ↓ تصدير العمليات
+        </button>
+    </div>
+
+    <!-- Stats -->
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-label">إجمالي العمليات</div>
+            <div class="stat-value">24</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">المبالغ الواردة</div>
+            <div class="stat-value positive">+ 970.00 JOD</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">المبالغ الصادرة</div>
+            <div class="stat-value negative">- 440.00 JOD</div>
+        </div>
+
+    </section>
+
+    <!-- Transactions -->
+
+    <section class="card">
+
+        <div class="toolbar">
+
+            <div class="search">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="ابحث عن عملية..."
+                    oninput="filterTransactions()"
+                >
+            </div>
+
+            <select id="typeFilter" onchange="filterTransactions()">
+                <option value="all">كل العمليات</option>
+                <option value="incoming">الواردة</option>
+                <option value="outgoing">الصادرة</option>
+            </select>
+
+            <select id="statusFilter" onchange="filterTransactions()">
+                <option value="all">كل الحالات</option>
+                <option value="completed">مكتملة</option>
+                <option value="pending">قيد التنفيذ</option>
+                <option value="cancelled">ملغاة</option>
+            </select>
+
+        </div>
+
+        <!-- Desktop -->
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>العملية</th>
+                        <th>التاريخ</th>
+                        <th>المبلغ</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+
+                <tbody id="transactionTable">
+
+                    <tr data-type="incoming" data-status="completed">
+                        <td>
+                            <div class="transaction">
+                                <div class="tx-icon tx-in">↓</div>
+                                <div>
+                                    <div class="tx-name">إيداع مالي</div>
+                                    <div class="tx-description">إضافة رصيد للحساب الرئيسي</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="date">29 سبتمبر 2026</td>
+
+                        <td class="amount positive">+120.00 JOD</td>
+
+                        <td>
+                            <span class="status completed">مكتملة</span>
+                        </td>
+                    </tr>
+
+                    <tr data-type="outgoing" data-status="completed">
+                        <td>
+                            <div class="transaction">
+                                <div class="tx-icon tx-out">↑</div>
+                                <div>
+                                    <div class="tx-name">تحويل مالي</div>
+                                    <div class="tx-description">تحويل إلى أحمد محمد</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="date">28 سبتمبر 2026</td>
+
+                        <td class="amount negative">-45.00 JOD</td>
+
+                        <td>
+                            <span class="status completed">مكتملة</span>
+                        </td>
+                    </tr>
+
+                    <tr data-type="outgoing" data-status="pending">
+                        <td>
+                            <div class="transaction">
+                                <div class="tx-icon tx-pending">↗</div>
+                                <div>
+                                    <div class="tx-name">دفع فاتورة</div>
+                                    <div class="tx-description">فاتورة خدمات</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="date">28 سبتمبر 2026</td>
+
+                        <td class="amount negative">-20.00 JOD</td>
+
+                        <td>
+                            <span class="status pending">قيد التنفيذ</span>
+                        </td>
+                    </tr>
+
+                    <tr data-type="incoming" data-status="completed">
+                        <td>
+                            <div class="transaction">
+                                <div class="tx-icon tx-in">↓</div>
+                                <div>
+                                    <div class="tx-name">تحويل وارد</div>
+                                    <div class="tx-description">استلام مبلغ مالي</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="date">27 سبتمبر 2026</td>
+
+                        <td class="amount positive">+250.00 JOD</td>
+
+                        <td>
+                            <span class="status completed">مكتملة</span>
+                        </td>
+                    </tr>
+
+                    <tr data-type="outgoing" data-status="cancelled">
+                        <td>
+                            <div class="transaction">
+                                <div class="tx-icon tx-out">×</div>
+                                <div>
+                                    <div class="tx-name">تحويل ملغى</div>
+                                    <div class="tx-description">عملية تحويل</div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="date">26 سبتمبر 2026</td>
+
+                        <td class="amount negative">-75.00 JOD</td>
+
+                        <td>
+                            <span class="status cancelled">ملغاة</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- Mobile -->
+
+        <div class="mobile-list" id="mobileTransactions">
+
+            <div class="mobile-item"
+                 data-type="incoming"
+                 data-status="completed">
+
+                <div class="mobile-top">
+
+                    <div class="mobile-left">
+                        <div class="tx-icon tx-in">↓</div>
+
+                        <div>
+                            <div class="tx-name">إيداع مالي</div>
+                            <div class="tx-description">
+                                إضافة رصيد للحساب الرئيسي
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amount positive">
+                        +120.00
+                    </div>
+
+                </div>
+
+                <div class="mobile-details">
+                    <span>29 سبتمبر 2026</span>
+                    <span class="status completed">مكتملة</span>
+                </div>
+
+            </div>
+
+
+            <div class="mobile-item"
+                 data-type="outgoing"
+                 data-status="completed">
+
+                <div class="mobile-top">
+
+                    <div class="mobile-left">
+                        <div class="tx-icon tx-out">↑</div>
+
+                        <div>
+                            <div class="tx-name">تحويل مالي</div>
+                            <div class="tx-description">
+                                تحويل إلى أحمد محمد
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amount negative">
+                        -45.00
+                    </div>
+
+                </div>
+
+                <div class="mobile-details">
+                    <span>28 سبتمبر 2026</span>
+                    <span class="status completed">مكتملة</span>
+                </div>
+
+            </div>
+
+
+            <div class="mobile-item"
+                 data-type="outgoing"
+                 data-status="pending">
+
+                <div class="mobile-top">
+
+                    <div class="mobile-left">
+                        <div class="tx-icon tx-pending">↗</div>
+
+                        <div>
+                            <div class="tx-name">دفع فاتورة</div>
+                            <div class="tx-description">
+                                فاتورة خدمات
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amount negative">
+                        -20.00
+                    </div>
+
+                </div>
+
+                <div class="mobile-details">
+                    <span>28 سبتمبر 2026</span>
+                    <span class="status pending">قيد التنفيذ</span>
+                </div>
+
+            </div>
+
+
+            <div class="mobile-item"
+                 data-type="incoming"
+                 data-status="completed">
+
+                <div class="mobile-top">
+
+                    <div class="mobile-left">
+                        <div class="tx-icon tx-in">↓</div>
+
+                        <div>
+                            <div class="tx-name">تحويل وارد</div>
+                            <div class="tx-description">
+                                استلام مبلغ مالي
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amount positive">
+                        +250.00
+                    </div>
+
+                </div>
+
+                <div class="mobile-details">
+                    <span>27 سبتمبر 2026</span>
+                    <span class="status completed">مكتملة</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Bottom Navigation -->
+
+<nav class="bottom-nav">
+
+    <a href="/dashboard" class="nav-item">
+        <span>⌂</span>
+        الرئيسية
+    </a>
+
+    <a href="/accounts" class="nav-item">
+        <span>▣</span>
+        الحسابات
+    </a>
+
+    <a href="/transfers" class="nav-item">
+        <span>⇄</span>
+        تحويل
+    </a>
+
+    <a href="/transactions" class="nav-item active">
+        <span>☷</span>
+        العمليات
+    </a>
+
+    <a href="/settings" class="nav-item">
+        <span>⚙</span>
+        الإعدادات
+    </a>
+
+</nav>
+
+
+<script>
+
+function filterTransactions() {
+
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const type =
+        document.getElementById("typeFilter")
+        .value;
+
+    const status =
+        document.getElementById("statusFilter")
+        .value;
+
+
+    document
+        .querySelectorAll("#transactionTable tr")
+        .forEach(row => {
+
+            const text =
+                row.innerText.toLowerCase();
+
+            const rowType =
+                row.dataset.type;
+
+            const rowStatus =
+                row.dataset.status;
+
+            const matchSearch =
+                text.includes(search);
+
+            const matchType =
+                type === "all" ||
+                rowType === type;
+
+            const matchStatus =
+                status === "all" ||
+                rowStatus === status;
+
+            row.style.display =
+                matchSearch &&
+                matchType &&
+                matchStatus
+                    ? ""
+                    : "none";
+        });
+
+
+    document
+        .querySelectorAll("#mobileTransactions .mobile-item")
+        .forEach(item => {
+
+            const text =
+                item.innerText.toLowerCase();
+
+            const rowType =
+                item.dataset.type;
+
+            const rowStatus =
+                item.dataset.status;
+
+            const matchSearch =
+                text.includes(search);
+
+            const matchType =
+                type === "all" ||
+                rowType === type;
+
+            const matchStatus =
+                status === "all" ||
+                rowStatus === status;
+
+            item.style.display =
+                matchSearch &&
+                matchType &&
+                matchStatus
+                    ? ""
+                    : "none";
+        });
+}
+
+
+function exportData() {
+
+    alert(
+        "تصدير العمليات سيكون متاحًا عند ربط SmartCashLine بقاعدة البيانات."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
