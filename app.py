@@ -4,13 +4,17 @@ app = Flask(__name__)
 
 
 # =========================================================
-# HOME / LOGIN
+# HOME / LANDING PAGE
 # =========================================================
 
 @app.route("/")
 def home():
-    return render_template("login.html")
+    return render_template("index.html")
 
+
+# =========================================================
+# LOGIN
+# =========================================================
 
 @app.route("/login")
 def login():
@@ -72,17 +76,26 @@ def about():
 @app.route("/contact", methods=["POST"])
 def contact():
 
-    data = request.get_json(silent=True) or {}
+    # دعم JSON
+    data = request.get_json(silent=True)
+
+    # إذا لم يصل JSON، حاول قراءة بيانات الفورم العادية
+    if not data:
+        data = request.form
 
     name = data.get("name", "").strip()
     email = data.get("email", "").strip()
     message = data.get("message", "").strip()
 
+    # التحقق من الحقول
     if not name or not email or not message:
         return jsonify({
             "success": False,
             "message": "يرجى تعبئة جميع الحقول."
         }), 400
+
+    # حاليًا يتم استقبال الرسالة فقط
+    # ويمكن لاحقًا ربطها بقاعدة بيانات أو بريد إلكتروني
 
     return jsonify({
         "success": True,
@@ -100,6 +113,26 @@ def health():
 
 
 # =========================================================
+# ERROR HANDLERS
+# =========================================================
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return jsonify({
+        "success": False,
+        "message": "الصفحة غير موجودة."
+    }), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        "success": False,
+        "message": "حدث خطأ داخلي في الخادم."
+    }), 500
+
+
+# =========================================================
 # RUN
 # =========================================================
 
@@ -109,3 +142,35 @@ if __name__ == "__main__":
         port=5000,
         debug=False
     )
+
+🔥 الآن ترتيب المشروع لازم يكون تقريبًا:
+
+smartcashline/
+│
+├── app.py
+├── requirements.txt
+│
+├── templates/
+│   ├── index.html       ← الصفحة الرئيسية
+│   ├── login.html       ← تسجيل الدخول
+│   ├── dashboard.html
+│   ├── accounts.html
+│   ├── transfers.html
+│   ├── transactions.html
+│   ├── customers.html
+│   ├── notifications.html
+│   ├── settings.html
+│   └── about.html
+│
+└── static/
+    ├── style.css
+    └── script.js
+
+بعد رفع "app.py" و"index.html" إلى GitHub:
+
+1. اعمل Commit.
+2. انتظر Deployment جديد في Railway.
+3. افتح رابط الموقع.
+4. اعمل تحديث للصفحة.
+
+النتيجة: "/" = الصفحة الرئيسية القديمة، و"/login" = تسجيل الدخول. 🚀
