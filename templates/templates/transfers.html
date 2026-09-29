@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCashLine | التحويلات</title>
+
+    <style>
+        :root {
+            --navy: #071a2f;
+            --blue: #1268c4;
+            --cyan: #16bfa2;
+            --bg: #f3f8fc;
+            --text: #10253f;
+            --muted: #7b8da0;
+            --border: #e3ebf3;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Tahoma, sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 90% 0%, rgba(18,104,196,.12), transparent 30%),
+                radial-gradient(circle at 5% 70%, rgba(22,191,162,.10), transparent 30%),
+                var(--bg);
+        }
+
+        .header {
+            height: 70px;
+            background: rgba(255,255,255,.9);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .logo span {
+            color: var(--cyan);
+        }
+
+        .profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background: #edf6fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: auto;
+            padding: 27px 17px 100px;
+        }
+
+        .page-title {
+            margin-bottom: 23px;
+        }
+
+        .page-title h1 {
+            font-size: 
