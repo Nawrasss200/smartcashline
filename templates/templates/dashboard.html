@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCashLine | لوحة التحكم</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 22px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #20d6a3;
+        }
+
+        .user {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #10283b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            padding: 22px 16px 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .welcome {
+            margin-bottom: 22px;
+        }
+
+        .welcome h1 {
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: #8ea3b8;
+            font-size: 14px;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #0c705e, #123e56);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.25);
+        }
+
+        .balance-title {
+            color: rgba(255,255,255,.75);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .balance {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .balance small {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .balance-info {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,.8);
+            font-size: 13px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: #0c1a2a;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 17px;
+            padding: 18px;
+        }
+
+        .stat-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .stat-title {
+            color: #8297aa;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+        }
+
+        .section-header a {
+            color: #20d6a3;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .transaction {
+            background: #0c1a2a;
+            border: 1px solid rgba(255,255,255,.07);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .transaction-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: #132c3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-info strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .transaction-info span {
+            color: #75899c;
+            font-size: 11px;
+        }
+
+        .amount {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .positive {
+            color: #20d6a3;
+        }
+
+        .negative {
+            color: #ff6978;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .action {
+            text-decoration: none;
+            color: white;
+            background: #0c1a2a;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 17px;
+            padding: 18px;
+            text-align: center;
+            transition: .2s;
+        }
+
+        .action:hover {
+            transform: translateY(-2px);
+            border-color: #20d6a3;
+        }
+
+        .action-icon {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .action span {
+            display: block;
+            font-size: 13px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 68px;
+            background: rgba(7,17,31,.96);
+            border-top: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .bottom-nav a {
+            color: #72879a;
+            text-decoration: none;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .bottom-nav a.active {
+            color: #20d6a3;
+        }
+
+        .bottom-nav div {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        @media (min-width: 700px) {
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .actions {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        Smart<span>CashLine</span>
+    </div>
+
+    <div class="user">
+        👤
+    </div>
+</header>
+
+<main class="container">
+
+    <div class="welcome">
+        <h1>مرحباً بك 👋</h1>
+        <p>إليك ملخص حسابك المالي اليوم</p>
+    </div>
+
+    <section class="balance-card">
+        <div class="balance-title">إجمالي الرصيد</div>
+
+        <div class="balance">
+            1,250.00 <small>JOD</small>
+        </div>
+
+        <div class="balance-info">
+            <span>آخر تحديث: الآن</span>
+            <span>● الحساب نشط</span>
+        </div>
+    </section>
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">📈</div>
+            <div class="stat-title">الإيداعات</div>
+            <div class="stat-value positive">+850 JOD</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">📉</div>
+            <div class="stat-title">المصروفات</div>
+            <div class="stat-value negative">-320 JOD</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">🔄</div>
+            <div class="stat-title">التحويلات</div>
+            <div class="stat-value">18</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-icon">👥</div>
+            <div class="stat-title">العملاء</div>
+            <div class="stat-value">42</div>
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>آخر العمليات</h2>
+            <a href="/transactions">عرض الكل</a>
+        </div>
+
+        <div class="transaction">
+            <div class="transaction-icon">💰</div>
+
+            <div class="transaction-info">
+                <strong>إيداع نقدي</strong>
+                <span>اليوم، 10:42 صباحاً</span>
+            </div>
+
+            <div class="amount positive">+120 JOD</div>
+        </div>
+
+        <div class="transaction">
+            <div class="transaction-icon">↗️</div>
+
+            <div class="transaction-info">
+                <strong>تحويل مالي</strong>
+                <span>اليوم، 09:18 صباحاً</span>
+            </div>
+
+            <div class="amount negative">-45 JOD</div>
+        </div>
+
+        <div class="transaction">
+            <div class="transaction-icon">🧾</div>
+
+            <div class="transaction-info">
+                <strong>دفع فاتورة</strong>
+                <span>أمس، 07:31 مساءً</span>
+            </div>
+
+            <div class="amount negative">-20 JOD</div>
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>إجراءات سريعة</h2>
+        </div>
+
+        <div class="actions">
+
+            <a href="/transfers" class="action">
+                <div class="action-icon">💸</div>
+                <span>تحويل جديد</span>
+            </a>
+
+            <a href="/accounts" class="action">
+                <div class="action-icon">💰</div>
+                <span>الحسابات</span>
+            </a>
+
+            <a href="/customers" class="action">
+                <div class="action-icon">👥</div>
+                <span>العملاء</span>
+            </a>
+
+            <a href="/notifications" class="action">
+                <div class="action-icon">🔔</div>
+                <span>الإشعارات</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<nav class="bottom-nav">
+
+    <a href="/dashboard" class="active">
+        <div>📊</div>
+        الرئيسية
+    </a>
+
+    <a href="/accounts">
+        <div>💰</div>
+        الحسابات
+    </a>
+
+    <a href="/transfers">
+        <div>💸</div>
+        التحويل
+    </a>
+
+    <a href="/transactions">
+        <div>📋</div>
+        العمليات
+    </a>
+
+    <a href="/settings">
+        <div>⚙️</div>
+        الإعدادات
+    </a>
+
+</nav>
+
+</body>
+</html>
